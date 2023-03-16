@@ -1,2 +1,5 @@
 # maze
-maze generator and pathfinder
+Maze generator and pathfinder
+By Austin Leonhirth
+
+started because i was bored
