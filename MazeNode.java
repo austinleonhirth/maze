@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.Color;
-import java.awt.event.*;
 
 public class MazeNode extends JButton{
     
@@ -18,10 +17,7 @@ public class MazeNode extends JButton{
 
     public MazeNode(){
         setBackground(normal);
-        setFocusPainted(false);
         setFocusable(false);
-        setVisible(true);
-
         
     }
     public void setStatus(int n){

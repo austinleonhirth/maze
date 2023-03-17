@@ -10,7 +10,7 @@ public class MazePanel extends JPanel{
     public MazePanel(int gridSize){
         
         super(new GridLayout(gridSize,gridSize));
-        setBackground(Color.BLACK);
+        setBackground(new Color(80,80,80));
 
         //Adds nodes in a gridSize square
         for(int x = 0; x < gridSize; x++){
