@@ -15,9 +15,14 @@ public class MazeNode extends JButton{
     private Color wall      = new Color(10,10,10);
     private Color start     = new Color(20,190,10);
 
-    public MazeNode(){
+    public int x;
+    public int y;
+
+    public MazeNode(int x, int y){
         setBackground(normal);
         setFocusable(false);
+        this.x  = x;
+        this.y  = y;
         
     }
     public void setStatus(int n){
@@ -42,6 +47,8 @@ public class MazeNode extends JButton{
     public int getStatus(){
         return status;
     }
-    
+    public String toString(){
+        return "NODE("+x+","+y+")";
+    }
     
 }

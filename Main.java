@@ -1,5 +1,6 @@
 import java.awt.Font;
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -20,10 +21,15 @@ public class Main{
      */
     public static int status = 1;
 
+    public static ArrayList<MazeNode> path = new ArrayList<MazeNode>();
+
     public static void main(String[] args){
 
         int gridSize = 15;
+        String algoList[] = {"Dijkstra"}; 
+
         
+        Pathfinding pathfinder = new Pathfinding();
 
         JFrame window = new JFrame();
         MazePanel mazePanel = new MazePanel(gridSize);
@@ -42,12 +48,13 @@ public class Main{
         JLabel text4a    = new JLabel("->");
 
         JButton completeB   = new JButton("Finalize Maze");
+        JButton solveB      = new JButton("Solve Maze");
     
 
         Font headerFont = new Font("Consolas",Font.PLAIN,29);
         Font medFont = new Font("Consolas",Font.PLAIN,17);
 
-
+        JComboBox dropDownBox = new JComboBox(algoList);
 
         /*
          * Window Initialization
@@ -60,6 +67,10 @@ public class Main{
         window.getContentPane().setBackground(new Color(80,80,80));
         window.setDefaultCloseOperation(3);     //Program exits when you press 'x'
 
+        /*
+         * Maze Panel Initialization
+         */
+        mazePanel.setBounds(30,30,800,800);
 
 
         /*
@@ -77,7 +88,8 @@ public class Main{
         window.add(text6);
         window.add(completeB);
         window.add(err);
-
+        window.add(dropDownBox);
+        window.add(solveB);
 
 
 
@@ -221,16 +233,26 @@ public class Main{
                         text4.setForeground(Color.GRAY);
                         text6.setVisible(true);
                         completeB.setVisible(false);
+                        dropDownBox.setVisible(true);
+                        solveB.setVisible(true);
                     } 
                   } );
-
         
-
-
-        /*
-         * Maze Panel Initialization
-         */
-        mazePanel.setBounds(30,30,800,800);
-        
+        solveB.setBackground(Color.WHITE);
+        solveB.setFont(medFont);
+        solveB.setBounds(1010,450,130,30);
+        solveB.setFocusable(false);
+        solveB.setVisible(false);
+        solveB.addActionListener(new ActionListener() { 
+                    public void actionPerformed(ActionEvent e) { 
+                        
+                        path = pathfinder.DijkstraSolve(MazePanel.nodeList);
+                        System.out.println(path);
+                    } 
+                  } );
+                  
+        dropDownBox.setVisible(false);
+        dropDownBox.setBounds(860,450,130,30);
+    
     }
 }
