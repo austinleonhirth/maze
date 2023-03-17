@@ -1,16 +1,41 @@
+import java.awt.Font;
+import java.awt.Color;
+
+import javax.lang.model.util.ElementScanner14;
 import javax.swing.*;
+import java.awt.event.*;
 
 public class Main{
 
     //GLOBALS
     public final static int WINDOW_WIDTH   = 1200;
     public final static int WINDOW_HEIGHT  = 1000;
-
+    public static int status = 1;
 
     public static void main(String[] args){
 
+        int gridSize = 10;
+        
+
         JFrame window = new JFrame();
-        MazePanel mazePanel = new MazePanel(10);
+        MazePanel mazePanel = new MazePanel(gridSize);
+
+        JLabel header   = new JLabel("Austin's Maze Machine");
+        JLabel text1    = new JLabel("Follow the steps below: ");
+        JLabel text2    = new JLabel(" #SET STARTING TILE");
+        JLabel text3    = new JLabel(" #SET END TILE");
+        JLabel text4    = new JLabel(" #PLACE WALLS");
+        JLabel err      = new JLabel("placeholder");
+
+        JLabel text2a    = new JLabel("->");
+        JLabel text3a    = new JLabel("->");
+        JLabel text4a    = new JLabel("->");
+    
+
+        Font headerFont = new Font("Consolas",Font.PLAIN,29);
+        Font medFont = new Font("Consolas",Font.PLAIN,17);
+
+
 
         /*
          * Window Initialization
@@ -20,12 +45,134 @@ public class Main{
         window.setVisible(true);
         window.setLocation(500, 100);           //meh its better than the default location
         window.setResizable(false);
+        window.getContentPane().setBackground(new Color(80,80,80));
         window.setDefaultCloseOperation(3);     //Program exits when you press 'x'
+
+        /*
+         * Node Button init
+         */
+        for(int x = 0; x < gridSize; x++){
+            for(int y = 0; y < gridSize; y++){
+                MazeNode c = mazePanel.nodeList.get(x).get(y);
+                c.addActionListener(new ActionListener() { 
+                    public void actionPerformed(ActionEvent e) { 
+
+                        System.out.println("BS: " + c.getStatus() + "\nMS: "+ status);
+                        //STATUS LOGIC
+                        if(status == 2){
+                            if(c.getStatus()==1)
+                            {
+                                err.setText("CANT PLACE END ON START BRUH");
+                                status--;
+                            }
+                            else
+                            {
+                                c.setStatus(2);
+                            }
+                        }
+                        else if(status == 3){
+                            if(c.getStatus()==1){
+                                err.setText("CANT PLACE WALL ON START BRUH");
+                                status--;
+                            }
+                            else if(c.getStatus()==2){
+                                err.setText("CANT PLACE WALL ON END BRUH");
+                                status--;
+                            }
+                            else if(c.getStatus() == 3){
+                                c.setStatus(0);
+                            }
+                            else{
+                                c.setStatus(3);
+                            }
+                        }
+                        else{
+                            c.setStatus(status);
+                        }    
+                        if(status != 3)
+                            status++;
+                        //END STATUS LOGIC
+                    } 
+                  } );
+            }
+        }
+
+
+
+
+        /*
+         * Maze Creation section init
+         */
+        header.setForeground(Color.WHITE);
+        header.setLocation(840,0);
+        header.setFont(headerFont);
+        header.setSize(400,100);
+        header.setVisible(true);
+
+        text1.setForeground(Color.WHITE);
+        text1.setLocation(840,100);
+        text1.setSize(400,50);
+        text1.setFont(medFont);
+        text1.setVisible(true);
+
+        text2.setForeground(Color.WHITE);
+        text2.setLocation(860,150);
+        text2.setSize(400,50);
+        text2.setFont(medFont);
+        text2.setVisible(true);
+
+        text2a.setForeground(Color.GREEN);
+        text2a.setLocation(840,150);
+        text2a.setSize(400,50);
+        text2a.setFont(medFont);
+        text2a.setVisible(true);
+
+        text3.setForeground(Color.GRAY);
+        text3.setLocation(860,200);
+        text3.setSize(400,50);
+        text3.setFont(medFont);
+        text3.setVisible(true);
+
+        text3a.setForeground(Color.WHITE);
+        text3a.setLocation(840,200);
+        text3a.setSize(400,50);
+        text3a.setFont(medFont);
+        text3a.setVisible(false);
+
+        text4.setForeground(Color.GRAY);
+        text4.setLocation(860,250);
+        text4.setSize(400,50);
+        text4.setFont(medFont);
+        text4.setVisible(true);
+
+        text4a.setForeground(Color.WHITE);
+        text4a.setLocation(840,250);
+        text4a.setSize(400,50);
+        text4a.setFont(medFont);
+        text4a.setVisible(false);
+
+        err.setForeground(Color.RED);
+        err.setLocation(840,450);
+        err.setSize(400,50);
+        err.setFont(medFont);
+        err.setVisible(true);
+
+
 
         /*
          * Add components
          */
         window.add(mazePanel);
+        window.add(header);
+        window.add(text1);
+        window.add(text2);
+        window.add(text3);
+        window.add(text4);
+        window.add(text2a);
+        window.add(text3a);
+        window.add(text4a);
+        window.add(err);
+
 
         /*
          * Maze Panel Initialization
