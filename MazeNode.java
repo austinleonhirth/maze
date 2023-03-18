@@ -9,7 +9,7 @@ public class MazeNode extends JButton{
      * 2 = END NODE
      * 3 = WALL  
     */
-    private int status = 0;
+    public int status = 0;
     private Color normal    = new Color(200,200,200);
     private Color end       = new Color(200,10,29);
     private Color wall      = new Color(10,10,10);

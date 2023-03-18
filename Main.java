@@ -1,6 +1,7 @@
 import java.awt.Font;
+import java.awt.MultipleGradientPaint.CycleMethod;
 import java.awt.Color;
-import java.util.ArrayList;
+import java.util.*;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -21,11 +22,11 @@ public class Main{
      */
     public static int status = 1;
 
-    public static ArrayList<MazeNode> path = new ArrayList<MazeNode>();
+    public static List<int[]> path;
 
     public static void main(String[] args){
 
-        int gridSize = 15;
+        int gridSize = 18;
         String algoList[] = {"Dijkstra"}; 
 
         
@@ -41,7 +42,7 @@ public class Main{
         JLabel text4    = new JLabel(" #PLACE WALLS");
         JLabel text6    = new JLabel("Now Select a Pathfinding Solution");
 
-        JLabel err      = new JLabel("placeholder");
+        JLabel err      = new JLabel("PLACEHOLDER");
 
         JLabel text2a    = new JLabel("->");
         JLabel text3a    = new JLabel("->");
@@ -212,7 +213,7 @@ public class Main{
         text6.setVisible(false);
 
         err.setForeground(Color.RED);
-        err.setLocation(870,800);
+        err.setLocation(50,850);
         err.setSize(400,50);
         err.setFont(medFont);
         err.setVisible(true);
@@ -247,7 +248,18 @@ public class Main{
                     public void actionPerformed(ActionEvent e) { 
                         
                         path = pathfinder.DijkstraSolve(MazePanel.nodeList);
-                        System.out.println(path);
+                        if(path.size()==2){
+                            err.setText("NO PATH");
+                        }
+                        else{
+                            //START COLOR SHORTEST PATH
+                            for(int x = 1; x < path.size()-1;x++){
+                                int cX = path.get(x)[0];
+                                int cY = path.get(x)[1];
+                                mazePanel.nodeList.get(cX).get(cY).setBackground(Color.BLUE);
+                            }
+                            //END COLORING
+                        }
                     } 
                   } );
                   
