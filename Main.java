@@ -1,8 +1,6 @@
 import java.awt.Font;
-import java.awt.MultipleGradientPaint.CycleMethod;
 import java.awt.Color;
 import java.util.*;
-
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -26,7 +24,7 @@ public class Main{
 
     public static void main(String[] args){
 
-        int gridSize = 18;
+        int gridSize = 10;
         String algoList[] = {"Dijkstra"}; 
 
         
@@ -41,8 +39,9 @@ public class Main{
         JLabel text3    = new JLabel(" #SET END TILE");
         JLabel text4    = new JLabel(" #PLACE WALLS");
         JLabel text6    = new JLabel("Now Select a Pathfinding Solution");
+        JLabel text7    = new JLabel("");
 
-        JLabel err      = new JLabel("PLACEHOLDER");
+        JLabel err      = new JLabel("");
 
         JLabel text2a    = new JLabel("->");
         JLabel text3a    = new JLabel("->");
@@ -87,6 +86,7 @@ public class Main{
         window.add(text3a);
         window.add(text4a);
         window.add(text6);
+        window.add(text7);
         window.add(completeB);
         window.add(err);
         window.add(dropDownBox);
@@ -107,7 +107,7 @@ public class Main{
                         if(status == 2){
                             if(c.getStatus()==1)
                             {
-                                err.setText("CANT PLACE END ON START BRUH");
+                                err.setText("CANT PLACE END ON START");
                                 status--;
                             }
                             else
@@ -123,11 +123,11 @@ public class Main{
                         }
                         else if(status == 3){
                             if(c.getStatus()==1){
-                                err.setText("CANT PLACE WALL ON START BRUH");
+                                err.setText("CANT PLACE WALL ON START");
                                 status--;
                             }
                             else if(c.getStatus()==2){
-                                err.setText("CANT PLACE WALL ON END BRUH");
+                                err.setText("CANT PLACE WALL ON END");
                                 status--;
                             }
                             else if(c.getStatus() == 3){
@@ -214,8 +214,8 @@ public class Main{
 
         err.setForeground(Color.RED);
         err.setLocation(50,850);
-        err.setSize(400,50);
-        err.setFont(medFont);
+        err.setSize(800,50);
+        err.setFont(headerFont);
         err.setVisible(true);
 
         completeB.setBackground(Color.WHITE);
@@ -260,11 +260,19 @@ public class Main{
                             }
                             //END COLORING
                         }
+                        text7.setText("Path Length: " + (path.size()-2));
+                        text7.setVisible(true);
                     } 
                   } );
                   
         dropDownBox.setVisible(false);
         dropDownBox.setBounds(860,450,130,30);
+
+        text7.setForeground(Color.WHITE);
+        text7.setLocation(860,600);
+        text7.setSize(400,50);
+        text7.setFont(medFont);
+        text7.setVisible(false);
     
     }
 }

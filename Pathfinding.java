@@ -2,8 +2,6 @@ import java.util.*;
 
 public class Pathfinding{
 
-    private static final int INF = Integer.MAX_VALUE;
-
     ArrayList<MazeNode> path = new ArrayList<MazeNode>();
     int v[][]; 
 
@@ -19,6 +17,7 @@ public class Pathfinding{
          * each element at (x,y) in the matrix is the status of node(x,y)
          * solve dijkstras by pathing along all nodes of status zero
          */
+
         v = new int[nodeList.size()][nodeList.size()];
 
         for(int x = 0; x < nodeList.size(); x++){
@@ -47,26 +46,7 @@ public class Pathfinding{
         }
         //Obtained start and end
 
-        List<int[]> shortestPath = dijkstra(v, start, end);
-        int maxLength = 0;
-        for (int[] arr : shortestPath) {
-            if (arr.length > maxLength) {
-                maxLength = arr.length;
-            }
-        }
-
-        // Print the elements in matrix format
-        for (int[] arr : shortestPath) {
-            for (int i = 0; i < maxLength; i++) {
-                if (i < arr.length) {
-                    System.out.print(arr[i] + " ");
-                } else {
-                    System.out.print("  "); // Print two spaces to maintain spacing in the matrix
-                }
-            }
-            System.out.println(); // Print a new line after each int array is printed
-        }
-        
+        List<int[]> shortestPath = dijkstra(v, start, end);     
         return shortestPath;
 
     }
@@ -149,12 +129,4 @@ public class Pathfinding{
         return path;
     }
 
-    private void printArray(int a[][]){
-        for(int x = 0; x < a.length; x++){
-            for(int y = 0; y < a.length; y++){
-                System.out.print(" "+a[x][y]);
-            }
-            System.out.print("\n");
-        }
-    }
 }
